@@ -1,0 +1,89 @@
+priors:
+  - name: FF-SSE
+    descriptions:
+      - { parameter: 'B->K::alpha^f+_0@BSZ2015', min: -1.0, max: 1.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^f+_1@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^f+_2@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^f0_1@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^f0_2@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^fT_0@BSZ2015', min: -1.0, max: 1.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^fT_1@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K::alpha^fT_2@BSZ2015', min: -5.0, max: 5.0, type: 'uniform' }
+  - name: SM
+    descriptions:
+      - { parameter: 'decay-constant::B_u', min: 0.0947, max: 0.2841, type: 'gaussian', central: 0.1894, sigma: 0.0189}
+
+likelihoods:
+  - name: FF-LQCD
+    constraints:
+      - 'B->K::f_0+f_++f_T@HPQCD:2022A'
+
+
+
+posteriors:
+  - name: FF-LQCD-SSE
+    global_options:      
+      form-factors: BSZ2015
+    prior:
+      - FF-SSE
+    likelihood:
+      - FF-LQCD
+  - name: SM
+    prior:
+      - SM
+    likelihood: []
+
+predictions:
+  - name: B-to-K-mu-mu-lowq2
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->Kll::dBR/ds;l=mu,q=u
+        kinematics: [ { q2:  0.15 }, { q2:  0.50 }, { q2:  0.75 }, { q2:  1.0  }, { q2:  1.5  }, { q2:  2.0  }, { q2:  2.5  },
+                      { q2:  3.0  }, { q2:  4.0  }, { q2:  5.0  }, { q2:  6.0 }, { q2:  7.0 }, { q2:  8.0 },
+                      { q2:  9.0  }, { q2: 10.0  }, { q2: 11.0  }, { q2: 11.6 }, {q2: 12.5 } ]
+  - name: B-to-K-mu-mu-lowq2-binned
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->Kll::BR;l=mu,q=u
+        kinematics:
+          - { q2_min: 1.1, q2_max: 2.0 }
+          - { q2_min: 2.0, q2_max: 3.0 }
+          - { q2_min: 3.0, q2_max: 4.0 }
+          - { q2_min: 4.0, q2_max: 5.0 }
+          - { q2_min: 5.0, q2_max: 6.0 }                        
+          - { q2_min: 6.0, q2_max: 7.0 }
+          - { q2_min: 7.0, q2_max: 8.0 }
+  - name: B-to-K-mu-mu-highq2-binned
+    global_options:
+      tag: GP2004
+    observables:
+      - name: B->Kll::BR;l=mu,q=u
+        kinematics:
+          - { q2_min: 15.0, q2_max: 16.0 }
+          - { q2_min: 16.0, q2_max: 17.0 }
+          - { q2_min: 17.0, q2_max: 18.0 }
+          - { q2_min: 18.0, q2_max: 19.0 }
+          - { q2_min: 19.0, q2_max: 20.0 }
+          - { q2_min: 20.0, q2_max: 21.0 }
+          - { q2_min: 21.0, q2_max: 22.0 }
+  - name: Bplus-to-Kplus-mu-mu
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->Kll::BR;l=mu,q=u
+        kinematics: [{ q2_min: 1.1, q2_max: 2.0 }, { q2_min: 2.0, q2_max: 3.0 }, { q2_min: 3.0, q2_max: 4.0 }, { q2_min: 4.0, q2_max: 5.0 },
+                     { q2_min: 5.0, q2_max: 6.0 }, { q2_min: 6.0, q2_max: 7.0 }, { q2_min: 7.0, q2_max: 8.0 }]
+
+
+
+
+
+
+#        kinematics:
+#          - { q2_min: 1.1, q2_max: 2.0 }
+#          - { q2_min: 2.0, q2_max: 3.0 }
+#          - { q2_min: 3.0, q2_max: 4.0 }
+#          - { q2_min: 4.0, q2_max: 5.0 }
+#          - { q2_min: 5.0, q2_max: 6.0 }      

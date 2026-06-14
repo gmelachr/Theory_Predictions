@@ -1,0 +1,84 @@
+priors:
+  - name: Lambdab-to-Lambda-FF-DM2016
+    descriptions:
+      - { parameter: 'Lambda_b->Lambda::a_0_long^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_0_long^A@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_0_perp^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_0_long^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_long^A@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_perp^A@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_long^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_0_long^T5@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_perp^T5@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_long^A@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_perp^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_perp^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_long^T5@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_long^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_0_perp^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_perp^A@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_long^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_long^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_2_perp^T@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_perp^V@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_perp^T5@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'Lambda_b->Lambda::a_1_long^T5@DM2016', min: -5.0, max: 5.0, type: 'uniform' }
+  - name: SM
+    descriptions:
+      - { parameter: 'decay-constant::Lambda_b', min: 0.11535, max: 0.34605, type: 'gaussian', central: 0.2307, sigma: 0.02307}
+
+likelihoods:
+  - name: Lambdab-to-Lambda-FF-DM2016
+    constraints:
+      - 'Lambda_b->Lambdamu^+mu^-::BR[15.0,20.0]@BMvD:2019A'
+
+posteriors:
+  - name: Lambdab-to-Lambda-FF-DM2016
+    global_options:
+      model: WET
+      form-factors: DM2016
+    prior:
+      - Lambdab-to-Lambda-FF-DM2016
+    likelihood:
+      - Lambdab-to-Lambda-FF-DM2016
+  - name: SM
+    prior:
+      - SM
+    likelihood: []
+
+predictions:
+  - name: Lambdab-to-Lambda-mu-mu-lowq2
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: Lambda_b->Lambdall::dBR/dq2@LargeRecoil;l=mu
+        kinematics: [ { q2:  0.15 }, { q2:  0.50 }, { q2:  0.75 }, { q2:  1.0  }, { q2:  1.5  }, { q2:  2.0  }, { q2:  2.5  },
+                      { q2:  3.0  }, { q2:  4.0  }, { q2:  5.0  }, { q2:  6.0 }, { q2:  7.0 }, { q2:  8.0 }]
+  - name: Lambdab-to-Lambda-mu-mu-lowq2-binned
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: Lambda_b->Lambdall::BR@LargeRecoil;l=mu
+        kinematics:
+          - { q2_min: 1.1, q2_max: 2.0 }
+          - { q2_min: 2.0, q2_max: 4.0 }
+          - { q2_min: 4.0, q2_max: 6.0 }
+          - { q2_min: 6.0, q2_max: 8.0 }
+
+  - name: Lambdab-to-Lambda-mu-mu-highq2-binned
+    global_options:
+      tag: GP2004
+    observables:
+      - name: Lambda_b->Lambdall::BR@LowRecoil;l=mu
+        kinematics:
+          - { q2_min: 15.0, q2_max: 16.0 }
+          - { q2_min: 16.0, q2_max: 17.0 }
+          - { q2_min: 17.0, q2_max: 18.0 }
+          - { q2_min: 18.0, q2_max: 19.0 }
+          - { q2_min: 19.0, q2_max: 20.0 }            
+  - name: Lambdab-to-Lambda-mu-mu
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: Lambda_b->Lambdall::BR@LargeRecoil;l=mu
+        kinematics: [{ q2_min: 1.1, q2_max: 2.0 }, { q2_min: 2.0, q2_max: 4.0 }, { q2_min: 4.0, q2_max: 6.0 }, { q2_min: 6.0, q2_max: 8.0 }]

@@ -1,0 +1,88 @@
+priors:
+  - name: B-to-Kstar-FF-BSZ2015
+    descriptions:
+      - { parameter: 'B->K^*::alpha^V_0@BSZ2015',    min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^V_1@BSZ2015',    min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^V_2@BSZ2015',    min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A0_0@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A0_1@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A0_2@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A1_0@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A1_1@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A1_2@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A12_1@BSZ2015',  min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^A12_2@BSZ2015',  min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T1_0@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T1_1@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T1_2@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T2_1@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T2_2@BSZ2015',   min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T23_0@BSZ2015',  min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T23_1@BSZ2015',  min: -5.0, max: 5.0, type: 'uniform' }
+      - { parameter: 'B->K^*::alpha^T23_2@BSZ2015',  min: -5.0, max: 5.0, type: 'uniform' }
+  - name: SM
+    descriptions:
+      - { parameter: 'decay-constant::B_u', min: 0.0947, max: 0.2841, type: 'gaussian', central: 0.1894, sigma: 0.0189}
+
+likelihoods:
+  - name: B-to-Kstar-FF-BSZ2015
+    constraints:
+      - 'B->K^*::FormFactors[A_0,A_1,A_2,V,T_1,T_2,T_23]@BSZ:2015A'
+
+posteriors:
+  - name: B-to-Kstar-FF-BSZ2015
+    global_options:
+      model: WET
+      form-factors: BSZ2015
+    prior:
+      - B-to-Kstar-FF-BSZ2015
+    likelihood:
+      - B-to-Kstar-FF-BSZ2015
+  - name: SM
+    prior:
+      - SM
+    likelihood: []
+
+predictions:
+  - name: Bplus-to-Kstarplus-mu-mu-lowq2
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->K^*ll::dBR/ds;l=mu,q=u
+        kinematics: [ { q2:  0.15 }, { q2:  0.50 }, { q2:  0.75 }, { q2:  1.0  }, { q2:  1.5  }, { q2:  2.0  }, { q2:  2.5  },
+                      { q2:  3.0  }, { q2:  4.0  }, { q2:  5.0  }, { q2:  6.0 }, { q2:  7.0 }, { q2:  8.0 }]
+  - name: Bplus-to-Kstarplus-mu-mu-lowq2-binned
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->K^*ll::BR;l=mu,q=u
+        kinematics:
+          - { q2_min: 1.1, q2_max: 2.0 }
+          - { q2_min: 2.0, q2_max: 3.0 }
+          - { q2_min: 3.0, q2_max: 4.0 }
+          - { q2_min: 4.0, q2_max: 5.0 }
+          - { q2_min: 5.0, q2_max: 6.0 }
+          - { q2_min: 6.0, q2_max: 7.0 }
+          - { q2_min: 7.0, q2_max: 8.0 }
+
+  - name: Bplus-to-Kstarplus-mu-mu-highq2-binned
+    global_options:
+      tag: GP2004
+    observables:
+      - name: B->K^*ll::BR;l=mu,q=u
+        kinematics:
+          - { q2_min: 15.0, q2_max: 16.0 }
+          - { q2_min: 16.0, q2_max: 17.0 }
+          - { q2_min: 17.0, q2_max: 18.0 }
+          - { q2_min: 18.0, q2_max: 19.0 }
+  - name: Bplus-to-Kstarplus-mu-mu
+    global_options:
+      tag: GvDV2020
+    observables:
+      - name: B->K^*ll::BR;l=mu,q=u
+        kinematics: [{ q2_min: 1.1, q2_max: 2.0 }, { q2_min: 2.0, q2_max: 3.0 }, { q2_min: 3.0, q2_max: 4.0 }, { q2_min: 4.0, q2_max: 5.0 },
+                     { q2_min: 5.0, q2_max: 6.0 }, { q2_min: 6.0, q2_max: 7.0 }, { q2_min: 7.0, q2_max: 8.0 }]
+          
+
+
+        
